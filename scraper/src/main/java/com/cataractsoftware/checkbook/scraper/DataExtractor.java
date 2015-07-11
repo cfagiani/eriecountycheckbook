@@ -16,7 +16,8 @@ import java.util.UUID;
 public class DataExtractor extends PdfTextExtractor {
     private static final String RECORD_TYPE = "checkRecord";
     private static final String HEADER = "name of the payee";
-    private static final String FOOTER = "Total";
+    private static final String[] FOOTERS = {"Total","Subtotal"};
+
 
 
     @Override
@@ -24,7 +25,7 @@ public class DataExtractor extends PdfTextExtractor {
         Collection<DataRecord> records = new ArrayList<DataRecord>();
         if(allText != null){
             for(String line: allText.split("\n")){
-                if(!line.toLowerCase().contains(HEADER) && !line.trim().startsWith(FOOTER)){
+                if(!isHeaderOrFooterLine(line.trim())){
                     String temp = line.trim();
                     if(temp.length()>0){
                         DataRecord rec = new DataRecord(UUID.randomUUID().toString(),RECORD_TYPE);
@@ -33,15 +34,30 @@ public class DataExtractor extends PdfTextExtractor {
                             rec.setField("date", temp.substring(dateIndex).trim());
                             temp = temp.substring(0, dateIndex - 1);
                             int amountIndex = temp.lastIndexOf(" ");
-                            rec.setField("amount", temp.substring(amountIndex).trim().replaceAll(",",""));
-                            rec.setField("payee", temp.substring(0, amountIndex - 1).trim().replaceAll(","," "));
-                            records.add(rec);
+                            if(amountIndex >=0) {
+                                rec.setField("amount", temp.substring(amountIndex).trim().replaceAll(",", ""));
+                                rec.setField("payee", temp.substring(0, amountIndex - 1).trim().replaceAll(",", " "));
+                                records.add(rec);
+                            }
                         }
                     }
                 }
             }
         }
         return records;
+    }
+
+    private boolean isHeaderOrFooterLine(String line){
+        if(line.toLowerCase().contains(HEADER)){
+            return true;
+        }
+
+        for(String f: FOOTERS){
+            if(line.startsWith(f)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

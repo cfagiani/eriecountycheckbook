@@ -1,10 +1,15 @@
 *.class
 
 **/build/
+*.gradle
+
 
 # intellij files #
 *.iml
 *.idea
+*.ipr
+*.iws
+
 
 # Package Files #
 *.jar

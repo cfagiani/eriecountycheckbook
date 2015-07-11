@@ -5,7 +5,7 @@
   				".*www2.erie.gov/comptroller/sites/www2.erie.gov.comptroller/files/uploads/.*Vendor.*Checks.*pdf"
   				],
   "ignorePatterns":[".*.js",".*.css"],
-  "maxThreads":1,
+  "maxThreads":5,
   "dataExtractor":{
     "type":"DATA_EXTRACTOR",
     "className":"com.cataractsoftware.checkbook.scraper.DataExtractor",

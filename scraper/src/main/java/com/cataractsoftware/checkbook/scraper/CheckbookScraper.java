@@ -9,8 +9,7 @@ public class CheckbookScraper {
     public static void main(String[] args) {
         checkArgs(args);
         try {
-            DataSponge sponge = new DataSponge(DataSponge.loadProps(args[0]));
-            sponge.executeCrawl();
+            DataSponge.main(new String[]{"--job",args[0],"--server", "--singleJob"});
         } catch (Exception e) {
             System.err.println("Could not run sponge: " + e.getMessage());
             e.printStackTrace(System.err);
@@ -21,7 +20,7 @@ public class CheckbookScraper {
 
     private static void checkArgs(String[] args) {
         if (args == null || args.length != 1) {
-            System.out.println("You must specify the path to the property file on the command line");
+            System.out.println("You must specify the path to the config file on the command line");
             System.exit(1);
         }
 
