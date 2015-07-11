@@ -1,0 +1,25 @@
+{
+  "jobName":"erieCountyCheckbook",
+  "startUrls":["http://www2.erie.gov/comptroller/index.php?q=taxpayer-checkbook"],
+  "includePatterns":[".*www2.erie.gov/comptroller/index.php\\?q=taxpayer-checkbook",
+  				".*www2.erie.gov/comptroller/sites/www2.erie.gov.comptroller/files/uploads/.*Vendor.*Checks.*pdf"
+  				],
+  "ignorePatterns":[".*.js",".*.css"],
+  "maxThreads":1,
+  "dataExtractor":{
+    "type":"DATA_EXTRACTOR",
+    "className":"com.cataractsoftware.checkbook.scraper.DataExtractor",
+    "pluginProperties":null
+    },
+  "dataWriter":{
+    "type":"DATA_WRITER",
+    "className":"org.cataractsoftware.datasponge.writer.CSVFileWriter",
+    "pluginProperties":{
+      "csvwriter.filename": "/tmp/output.csv",
+      "csvwriter.mode":"overwrite",
+	  "csvwriter.includeheader":true,
+      "csvwriter.fieldorder":"payee;amount;date"
+      }
+    },
+  "mode":"ONCE"
+ }
