@@ -22,7 +22,7 @@ project(':scraper') {
 
     apply plugin: 'groovy'
     dependencies {
-        compile('org.cataractsoftware.datasponge:datasponge:2.0-SNAPSHOT') {
+        compile('org.cataractsoftware.datasponge:datasponge:2.1-SNAPSHOT') {
             exclude module: 'xml-apis'
         }
         compile 'xml-apis:xml-apis:1.4.01'
